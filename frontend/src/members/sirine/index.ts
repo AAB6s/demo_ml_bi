@@ -1,6 +1,21 @@
-// Sirine's ML Modules Index (Placeholder)
-// Add ML objectives here when implemented
+import { Lightbulb } from 'lucide-react';
+import SkillAnalysisForm from "./components/SkillAnalysisForm";
+import SirineApp from "./App"; 
 
-export const mlObjectives: never[] = [];
+// Named export for your main App.tsx to find
+export { SirineApp };
 
-export default mlObjectives;
+// The array for Sirine's MLContainer.tsx
+export const sirineObjectives = [
+  {
+    id: 'skill-analysis',
+    title: 'Skill Analysis',
+    description: 'Analyze skill gaps and workforce readiness',
+    icon: Lightbulb,
+    component: SkillAnalysisForm,
+    disabled: false
+  }
+];
+
+// Default export for the container
+export default sirineObjectives;

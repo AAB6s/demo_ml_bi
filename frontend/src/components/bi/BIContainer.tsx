@@ -88,6 +88,7 @@ const BIContainer = () => {
         </AnimatePresence>
 
         <iframe
+          key={currentPageIndex}
           src={currentPage.embedUrl}
           className="w-full h-full border-0"
           allowFullScreen

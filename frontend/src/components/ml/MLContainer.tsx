@@ -1,14 +1,17 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Brain, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react'
+
 import ahmedObjectives from '@/members/ahmed'
 import maramObjectives from '@/members/maram'
 import houdaObjectives from '@/members/houda'
+import sirineObjectives from '@/members/sirine'
 
 const ALL_ML_OBJECTIVES = [
   ...ahmedObjectives,
   ...maramObjectives,
   ...houdaObjectives,
+  ...sirineObjectives,
 ]
 
 const MLContainer = () => {
