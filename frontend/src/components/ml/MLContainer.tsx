@@ -1,9 +1,15 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Brain, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react'
-import ahmedObjectives from '@/members/ahmed/index'
+import ahmedObjectives from '@/members/ahmed'
+import maramObjectives from '@/members/maram'
+import houdaObjectives from '@/members/houda'
 
-const ALL_ML_OBJECTIVES = [...ahmedObjectives]
+const ALL_ML_OBJECTIVES = [
+  ...ahmedObjectives,
+  ...maramObjectives,
+  ...houdaObjectives,
+]
 
 const MLContainer = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)

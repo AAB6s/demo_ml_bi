@@ -1,6 +1,6 @@
-// Houda's ML Modules Index (Placeholder)
-// Add ML objectives here when implemented
+// Houda's ML Modules Index
+import { mlCompetitionConfig } from './Job_competition_intensity'
 
-export const mlObjectives: never[] = [];
+const houdaObjectives = [mlCompetitionConfig]
 
-export default mlObjectives;
+export default houdaObjectives

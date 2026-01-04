@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { LayoutDashboard } from 'lucide-react'
+import { LayoutDashboard, ChevronDown, ChevronUp } from 'lucide-react'
 import { biPages } from '@/bi/pages'
 
 const BIContainer = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(false)
 
   const currentPage = biPages[currentPageIndex]
 
@@ -23,29 +24,53 @@ const BIContainer = () => {
       transition={{ duration: 0.3 }}
       className="h-full flex flex-col rounded-xl border border-border bg-card overflow-hidden"
     >
-      <div className="px-5 py-4 border-b border-border flex items-center gap-3">
-        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-          <LayoutDashboard className="w-4 h-4 text-primary" />
-        </div>
-        <h2 className="text-base font-semibold">Business Intelligence</h2>
-      </div>
+      <div
+        className="border-b border-border"
+        onMouseEnter={() => setIsCollapsed(false)}
+        onMouseLeave={() => setIsCollapsed(true)}
+      >
+        <div className="px-5 py-4 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+              <LayoutDashboard className="w-4 h-4 text-primary" />
+            </div>
+            <h2 className="text-base font-semibold">Business Intelligence</h2>
+          </div>
 
-      <div className="px-5 py-3 border-b border-border">
-        <div className="grid grid-cols-3 gap-2">
-          {biPages.map((page, index) => (
-            <button
-              key={page.id}
-              onClick={() => handlePageChange(index)}
-              className={`h-10 rounded-md text-sm font-medium transition ${
-                index === currentPageIndex
-                  ? 'bg-primary/10 text-primary'
-                  : 'bg-secondary/40 text-muted-foreground hover:bg-secondary'
-              }`}
-            >
-              {page.title}
-            </button>
-          ))}
+          {isCollapsed ? (
+            <ChevronDown className="w-4 h-4 text-muted-foreground" />
+          ) : (
+            <ChevronUp className="w-4 h-4 text-muted-foreground" />
+          )}
         </div>
+
+        <AnimatePresence initial={false}>
+          {!isCollapsed && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="px-5 py-3 border-t border-border overflow-hidden"
+            >
+              <div className="grid grid-cols-3 gap-2">
+                {biPages.map((page, index) => (
+                  <button
+                    key={page.id}
+                    onClick={() => handlePageChange(index)}
+                    className={`h-10 rounded-md text-sm font-medium transition ${
+                      index === currentPageIndex
+                        ? 'bg-primary/10 text-primary'
+                        : 'bg-secondary/40 text-muted-foreground hover:bg-secondary'
+                    }`}
+                  >
+                    {page.title}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="flex-1 relative">
@@ -63,7 +88,6 @@ const BIContainer = () => {
         </AnimatePresence>
 
         <iframe
-          key={currentPageIndex}
           src={currentPage.embedUrl}
           className="w-full h-full border-0"
           allowFullScreen

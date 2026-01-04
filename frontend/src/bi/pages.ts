@@ -29,7 +29,7 @@ export const biPages: BIPage[] = [
     id: 4,
     title: 'Company & Freelance Insights',
     description: 'Company hiring patterns and freelance market analysis',
-    embedUrl: 'POWERBI_URL_4',
+    embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=97d849ba-7103-4382-8efb-ae608ac6789b&autoAuth=true&ctid=604f1a96-cbe8-43f8-abbf-f8eaf5d85730',
   },
   {
     id: 5,
