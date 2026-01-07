@@ -17,7 +17,7 @@ from app.routers.maram import ClusteringEmp, Sentimentanalysis
 from app.routers.houda import Job_competition_intensity
 from app.routers.sirine.router import router as sirine_router
 from app.routers.ilyes import remote, clustering as ilyes_clustering
-
+from app.routers.yassine.app import router as hr_router
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 app.include_router(attrition.router, prefix="/attrition")
@@ -29,6 +29,7 @@ app.include_router(Job_competition_intensity.router)
 app.include_router(sirine_router)
 app.include_router(remote.router, prefix="/remote")
 app.include_router(ilyes_clustering.router, prefix="/ilyes_clustering")
+app.include_router(hr_router)
 
 @app.get("/")
 def root(): return {"message": "Backend is running"}

@@ -6,6 +6,7 @@ import maramObjectives from '@/members/maram'
 import houdaObjectives from '@/members/houda'
 import sirineObjectives from '@/members/sirine'
 import ilyessObjectives from '@/members/ilyess'
+import hrObjectives from '@/members/yassine'
 
 const ALL_ML_OBJECTIVES = [
   ...ahmedObjectives,
@@ -13,6 +14,7 @@ const ALL_ML_OBJECTIVES = [
   ...houdaObjectives,
   ...sirineObjectives,
   ...ilyessObjectives,
+  ...hrObjectives,
 ]
 
 const MLContainer = () => {
