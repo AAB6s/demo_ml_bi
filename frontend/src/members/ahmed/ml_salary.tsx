@@ -303,7 +303,7 @@ function generateMockResult(formData: FormData): PredictionResult {
 export const mlSalaryConfig = {
   id: 'salary',
   title: 'Salary Prediction',
-  description: 'Predict expected salary based on demographics, education, and experience',
+  description: 'Salary prediction from demographics and experience',
   icon: DollarSign,
   component: MLSalary,
   disabled: false,
