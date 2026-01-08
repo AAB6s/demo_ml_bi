@@ -4,6 +4,7 @@ from app.routers.ahmed import attrition, salary, clustering
 from app.routers.maram import ClusteringEmp as maram_clustering
 from app.routers.maram import Sentimentanalysis as maram_sentiment
 from app.routers.houda import Job_competition_intensity
+from app.routers import ilef
 from app.routers.sirine import router as sirine_router
 
 app = FastAPI()
@@ -28,8 +29,11 @@ app.include_router(maram_sentiment.router)
 # Houda module
 app.include_router(Job_competition_intensity.router)
 
+# Ilef module
+app.include_router(ilef.router, prefix="/job-insights", tags=["Labor Market Analysis"])
+
 # Sirine module
-app.include_router(sirine_router)
+#app.include_router(sirine_router)
 
 
 @app.get("/")
