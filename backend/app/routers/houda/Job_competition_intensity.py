@@ -1,16 +1,31 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field, validator
-import numpy as np, pickle, os, re
+from pydantic import BaseModel, Field, field_validator
+import numpy as np
+import pickle
+import os
+import re
 
 router = APIRouter(prefix="/competition", tags=["competition"])
 
 MD = os.path.dirname(__file__)
 
-model = pickle.load(open(os.path.join(MD, "model_gb.pkl"), "rb"))
-tfidf = pickle.load(open(os.path.join(MD, "tfidf.pkl"), "rb"))
-svd = pickle.load(open(os.path.join(MD, "svd.pkl"), "rb"))
-scaler = pickle.load(open(os.path.join(MD, "scaler.pkl"), "rb"))
-le = pickle.load(open(os.path.join(MD, "label_encoder.pkl"), "rb"))
+def safe_load_pickle(path, name):
+    try:
+        if os.path.exists(path):
+            with open(path, "rb") as f:
+                return pickle.load(f)
+        else:
+            print(f"⚠ Warning: {name} not found at {path}")
+            return None
+    except Exception as e:
+        print(f"⚠ Error loading {name}: {e}")
+        return None
+
+model = safe_load_pickle(os.path.join(MD, "model_gb.pkl"), "Model")
+tfidf = safe_load_pickle(os.path.join(MD, "tfidf.pkl"), "TF-IDF")
+svd = safe_load_pickle(os.path.join(MD, "svd.pkl"), "SVD")
+scaler = safe_load_pickle(os.path.join(MD, "scaler.pkl"), "Scaler")
+le = safe_load_pickle(os.path.join(MD, "label_encoder.pkl"), "Label Encoder")
 
 CATEGORY_MAP = {
     "web": "Web Development",
@@ -27,7 +42,8 @@ class InputData(BaseModel):
     Category_Name: str = Field(..., max_length=50)
     Spent_USD: float = Field(..., ge=0, le=1_000_000)
 
-    @validator("*", pre=True)
+    @field_validator("*", mode="before")
+    @classmethod
     def clean_text(cls, v):
         if isinstance(v, str):
             v = re.sub(r"\s+", " ", v).strip()
@@ -55,9 +71,16 @@ def build_features(d: InputData):
 @router.post("/predict")
 def predict(d: InputData):
     try:
+        # Validate models are loaded
+        if not all([model, tfidf, svd, scaler, le]):
+            raise HTTPException(status_code=503, detail="Models not loaded. Check server logs.")
+        
         X = build_features(d)
         pred = model.predict(X)[0]
         label = le.inverse_transform([pred])[0]
         return {"prediction": int(pred), "label": label}
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        print(f"Prediction error: {e}")
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
