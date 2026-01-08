@@ -34,7 +34,7 @@ app.include_router(Job_competition_intensity.router)
 app.include_router(ilef.router, prefix="/job-insights", tags=["Labor Market Analysis"])
 
 # Sirine module
-#app.include_router(sirine_router)
+app.include_router(sirine_router)
 
 app.include_router(sirine_router)
 app.include_router(remote.router, prefix="/remote")
