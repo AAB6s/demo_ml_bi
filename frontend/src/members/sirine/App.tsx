@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SkillAnalysisForm from "./components/SkillAnalysisForm";
 import ResultsDashboard from "./components/ResultsDashboard";
 import PowerBIDashboard from "./components/PowerBIDashboard";
-import "../../app.css";
+import "@/App.css";
 
 type AnalysisResults = any;
 type FormData = Record<string, any>;

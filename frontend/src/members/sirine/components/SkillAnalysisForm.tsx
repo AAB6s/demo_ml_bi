@@ -437,7 +437,7 @@ const SkillAnalysisForm = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Location (Optional)</label>
+            <label className="text-sm font-medium text-foreground">Location</label>
             <input
               className="w-full px-3 py-2 rounded-md border border-border bg-background text-foreground outline-none focus:border-primary"
               type="text"
@@ -447,7 +447,7 @@ const SkillAnalysisForm = () => {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Target Role (Optional)</label>
+            <label className="text-sm font-medium text-foreground">Target Role</label>
             <input
               className="w-full px-3 py-2 rounded-md border border-border bg-background text-foreground outline-none focus:border-primary"
               type="text"

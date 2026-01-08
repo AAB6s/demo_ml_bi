@@ -5,3 +5,5 @@ __pycache__/
 *.pyd
 *.safetensors
 backend/app/routers/sirine/data/job_postings.csv
+env/
+venv/
