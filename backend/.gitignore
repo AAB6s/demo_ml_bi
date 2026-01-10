@@ -1,0 +1,11 @@
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.safetensors
+app/routers/houda/umap_model.joblib
+app/routers/houda/ml_export_kmeans/umap_model.joblib
+app/routers/sirine/data/job_postings.csv
